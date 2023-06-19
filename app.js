@@ -1,6 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require('path');
 const bookRouter = require("./routes/bookRouter");
+const userRouter = require("./routes/userRouter");
+const bodyParser = require("body-parser");
 
 
 const app = express();
@@ -21,7 +24,14 @@ app.use((req, res, next) => {
     next();
 });
 
+// Convertit le body au format JSON au format JS (ne fonctionne pas avec les body Multipart)
+app.use(bodyParser.json());
+
 // Indique les routes à utiliser pour un point End Point
 app.use("/api/books", bookRouter);
+app.use("/api/auth", userRouter);
+
+// Expose le dossier images pour l'affichage des images
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
