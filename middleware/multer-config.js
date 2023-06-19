@@ -1,7 +1,7 @@
 const multer = require('multer');
 
 
-function removeExtension(filename) {
+/*function removeExtension(filename) {
   return filename.substring(0, filename.lastIndexOf('.')) || filename;
 }
 
@@ -21,5 +21,8 @@ const storage = multer.diskStorage({
     callback(null, removeExtension(name) + Date.now() + '.' + extension);
   }
 });
+*/
+
+const storage = multer.memoryStorage();
 
 module.exports = multer({storage: storage}).single('image');
