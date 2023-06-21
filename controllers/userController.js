@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const dotenv = require("dotenv");
+dotenv.config()
 
 exports.signup = (req, res, next) => {
     // Hashe le mot de passe en 10 tours
@@ -31,7 +33,7 @@ exports.login = (req, res, next) => {
                     userId: user._id,
                     token: jwt.sign(
                         { userId: user._id },
-                        'mimglj7564569853214MJPhvjgf6546843',
+                        process.env.TOKEN_SECRET,
                         { expiresIn: '24h' }
                     ) })
             }
