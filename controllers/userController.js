@@ -17,9 +17,9 @@ exports.signup = (req, res, next) => {
         // Enregistre l'instance dans la BDD
         user.save()
         .then(() => res.status(201).json({ message: "Utilisateur créé" }))
-        .catch(error => res.status(400).json({ error }));
+        .catch(error => res.status(500).json({ error }));
     })
-    .catch(error => res.status(400).json({ error }))
+    .catch(error => res.status(500).json({ error }))
 }
 
 // Vérifie les identifiants de l'utilisateur et renvoie un token
@@ -44,7 +44,7 @@ exports.login = (req, res, next) => {
                 res.status(401).json({ message: "Paire identifiant/mot de passe non valide" })
             }
         })
-        .catch(error => res.status(400).json({ error }))
+        .catch(error => res.status(500).json({ error }))
     })
     .catch(error => res.status(404).json({ error }));
 }
