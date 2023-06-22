@@ -1,9 +1,15 @@
 const sharp = require("sharp");
 
+/**
+ * Supprime l'extension d'un fichier
+ * @param {String} filename nom de fichier
+ * @returns nom de fichier sans extension
+ */
 function removeExtension(filename) {
     return filename.substring(0, filename.lastIndexOf('.')) || filename;
 }
 
+// Redimensionne et convertie une image au format webp
 module.exports = async (req, res, next) => {
     // Vérifie que le multer a bien renvoyé un fichier
     if (req.file) {
@@ -15,9 +21,9 @@ module.exports = async (req, res, next) => {
         // Appel à la bibliothèque Sharp pour retraiter les images
         await sharp(buffer)
         .resize({
-            // Redimenssione l'image 1000px max
+            // Redimensionne l'image 1000px max
             height: 1000,
-            // Si hauteur - de 1000 : ne redimensionne pas
+            // Si hauteur - de 1000px : ne redimensionne pas
             withoutEnlargement: true
         }) 
         .webp({ quality: 20 }) // definit le format WEBP avec une qualité à 20

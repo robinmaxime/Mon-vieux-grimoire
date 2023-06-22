@@ -1,24 +1,28 @@
 const fs = require("fs");
 const Book = require("../models/book");
 
+// Renvoie tous les livres de la BDD
 exports.getAllBooks = (req, res, next) => {
     Book.find()
     .then(books => res.status(200).json( books ))
     .catch(error => res.status(400).json({ error }));
 };
 
+// Renvoie les 3 livres les mieux notés
 exports.getBestRating = (req, res, next) => {
     Book.find().sort({ averageRating: "desc" }).limit(3)
     .then(books => res.status(200).json( books ))
     .catch(error => res.status(400).json({ error }))
 };
 
+// Renvoie un livre selon son iD
 exports.getOneBook = (req, res, next) => {
     Book.findById(req.params.id)
     .then(book => res.status(200).json( book ))
     .catch(error => res.status(404).json({ error }));
 };
 
+// Crée un nouveau livre dans la BDD
 exports.createNewBook = (req, res, next) => {
     // Transforme au format JS le contenu de la clef "book"
     const bookObject = JSON.parse(req.body.book);
@@ -36,6 +40,7 @@ exports.createNewBook = (req, res, next) => {
     .catch(error => res.status(400).json({ error }))
 };
 
+// Ajoute une note à un livre selon son ID
 exports.setBookRating = (req, res, next) => {
     // Vérifie que le userId associé au token est le même que celui de la requête
     if (req.body.userId === req.auth.userId) {
@@ -70,6 +75,7 @@ exports.setBookRating = (req, res, next) => {
     }
 };
 
+// Modifie un livre de la BDD
 exports.modifyBook = (req, res, next) => {
 
     // récupère les données à mettre à jour (soit dans le req.body.book Parsé [si il y a un file] soit dans le req.body)
@@ -101,6 +107,7 @@ exports.modifyBook = (req, res, next) => {
 
 };
 
+// Supprime un livre de la BDD
 exports.deleteBook = (req, res, next) => {
     
     // Supprime le livre selon son Id et le renvoie en callback

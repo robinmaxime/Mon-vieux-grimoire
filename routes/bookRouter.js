@@ -4,6 +4,7 @@ const multer = require("../middleware/multer-config");
 const auth = require("../middleware/auth");
 const imageConverter = require("../middleware/imageConverter");
 
+// Crée un router Express
 const router = express.Router();
 
 router.get("/", bookController.getAllBooks);
