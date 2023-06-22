@@ -1,15 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require('path');
+const dotenv = require("dotenv");
 const bookRouter = require("./routes/bookRouter");
 const userRouter = require("./routes/userRouter");
 const bodyParser = require("body-parser");
+
+// Charge le fichier .env
+dotenv.config()
 
 // Création de l'application Express
 const app = express();
 
 // Connexion à la base de donnée MongoDB
-mongoose.connect('mongodb+srv://robinmaxime44:nyxgex-goJno4-wofhew@cluster0.8ya4put.mongodb.net/monvieuxgrimoire?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.8ya4put.mongodb.net/monvieuxgrimoire?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
