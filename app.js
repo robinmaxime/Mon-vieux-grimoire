@@ -2,9 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require('path');
 const dotenv = require("dotenv");
+const fs = require("fs");
 const bookRouter = require("./routes/bookRouter");
 const userRouter = require("./routes/userRouter");
 const bodyParser = require("body-parser");
+
+// crée le dossier "images" vide 
+fs.mkdir("images", { recursive: true }, (err) => { if (err) throw err; } )
 
 // Charge le fichier .env
 dotenv.config()
